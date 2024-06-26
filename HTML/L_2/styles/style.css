@@ -1,0 +1,24 @@
+.one {
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-style: italic; */
+    font-weight: bold;
+    font-weight: 800;
+    font-weight: 400;
+    color: darkgreen;
+    color: #000;
+    color: rgb(rgb(204, 83, 83), green, blue);
+    color: brown;
+    background-color: blanchedalmond;
+    min-height: 20px;
+}
+
+.two {
+    font-weight: 800;
+    background-color: rgb(149, 100, 35);
+    color: rgb(233, 233, 233);
+    width: 50%;
+    min-height: 100px;
+    padding: 1.5%;
+    margin: 2%;
+}
