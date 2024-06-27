@@ -5,13 +5,33 @@
 table {
     border: 1px solid black;
     border-collapse: collapse;
+    margin: 1%;
+    margin: 0 auto;
+    width: 80%;
 }
 
-td {
+td,
+th {
     border: 1px solid black;
     padding: 10px;
+    vertical-align: middle;
+}
+
+th {
+    background-color: orange;
+    font-style: italic;
 }
 
 .bg-gray {
-    background: gray;
+    background: rgb(225, 222, 222);
+}
+
+.my-email {
+    border: none;
+}
+
+.my-email td,
+th,
+.my-email {
+    border: none;
 }

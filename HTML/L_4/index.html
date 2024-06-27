@@ -10,9 +10,9 @@
   <body>
     <table>
       <tr>
-        <td>One</td>
-        <td>Two</td>
-        <td>Three</td>
+        <th>One</th>
+        <th>Two</th>
+        <th>Three</th>
       </tr>
       <tr class="bg-gray">
         <td>One</td>
@@ -20,9 +20,39 @@
         <td>Three</td>
       </tr>
       <tr>
-        <td>One</td>
-        <td>Two</td>
-        <td>Three</td>
+        <td colspan="2">One</td>
+        <td rowspan="2">Two</td>
+      </tr>
+      <tr class="bg-gray">
+        <td rowspan="">One</td>
+        <td colspan="">Two</td>
+      </tr>
+    </table>
+
+    <h1>Email</h1>
+    <table class="my-email">
+      <tr>
+        <td colspan="2">Go to IT</td>
+        <td>+38055055</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="2">
+          <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+          </ul>
+        </td>
+        <td>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum
+          accusantium dolores sed officia porro! Doloremque nostrum facilis
+          incidunt alias perspiciatis veritatis magni, iure cumque minus cum
+          maiores accusantium ratione eaque!
+        </td>
+      </tr>
+      <tr>
+        <td>footer</td>
       </tr>
     </table>
   </body>
