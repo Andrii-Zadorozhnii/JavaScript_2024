@@ -1,30 +1,142 @@
-const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const b = ["a", "b", "c", "d", "e", "f"];
+document.addEventListener('DOMContentLoaded', function () {
+    const calculator = {
+        displayValue: '0',
+        firstOperand: null,
+        waitingForSecondOperand: false,
+        operator: null,
+    };
 
+    function updateDisplay() {
+        const display = document.querySelector('.calculator-screen');
+        display.value = calculator.displayValue;
+    }
 
-// add element to the end of array
+    updateDisplay();
 
-console.log(a.length)
-console.log(a);
-console.log(a.push(10, 11, 12, 13, 14, 15, 16, 17, 18, 19));
-console.log(a);
+    const keys = document.querySelector('.calculator-keys');
+    keys.addEventListener('click', function (event) {
+        const {
+            target
+        } = event;
+        const {
+            value
+        } = target;
 
-console.log(b.push('j', 'e'));
-console.log(b);
+        if (!target.matches('button')) {
+            return;
+        }
 
-// delete element from end of array
-console.log(b.pop());
-console.log(b.pop());
-console.log(b);
+        switch (value) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+                handleOperator(value);
+                break;
+            case '.':
+                inputDecimal(value);
+                break;
+            case 'all-clear':
+                resetCalculator();
+                break;
+            case '=':
+                handleEqualSign();
+                break;
+            default:
+                if (Number.isInteger(parseFloat(value))) {
+                    inputDigit(value);
+                }
+        }
 
-// delete element from inside of array
+        updateDisplay();
+    });
 
-delete a[3]; // to effecting on lenght of array
-console.log(a);
+    function inputDigit(digit) {
+        const {
+            displayValue,
+            waitingForSecondOperand
+        } = calculator;
 
-// splice arrays
+        if (waitingForSecondOperand === true) {
+            calculator.displayValue = digit;
+            calculator.waitingForSecondOperand = false;
+        } else {
+            calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+        }
+    }
 
-a.splice(3, 4, "hi");
-console.log(a);
+    function inputDecimal(dot) {
+        if (calculator.waitingForSecondOperand === true) {
+            calculator.displayValue = '0.';
+            calculator.waitingForSecondOperand = false;
+            return;
+        }
 
-// shift / unshift ->> add or delete from begining of arra
+        if (!calculator.displayValue.includes(dot)) {
+            calculator.displayValue += dot;
+        }
+    }
+
+    function handleOperator(nextOperator) {
+        const {
+            firstOperand,
+            displayValue,
+            operator
+        } = calculator;
+        const inputValue = parseFloat(displayValue);
+
+        if (operator && calculator.waitingForSecondOperand) {
+            calculator.operator = nextOperator;
+            return;
+        }
+
+        if (firstOperand == null) {
+            calculator.firstOperand = inputValue;
+        } else if (operator) {
+            const result = calculate(firstOperand, inputValue, operator);
+
+            calculator.displayValue = String(result);
+            calculator.firstOperand = result;
+        }
+
+        calculator.waitingForSecondOperand = true;
+        calculator.operator = nextOperator;
+    }
+
+    function calculate(firstOperand, secondOperand, operator) {
+        if (operator === '+') {
+            return firstOperand + secondOperand;
+        } else if (operator === '-') {
+            return firstOperand - secondOperand;
+        } else if (operator === '*') {
+            return firstOperand * secondOperand;
+        } else if (operator === '/') {
+            return firstOperand / secondOperand;
+        }
+
+        return secondOperand;
+    }
+
+    function handleEqualSign() {
+        const {
+            firstOperand,
+            displayValue,
+            operator
+        } = calculator;
+        const inputValue = parseFloat(displayValue);
+
+        if (operator && calculator.waitingForSecondOperand) {
+            calculator.displayValue = String(calculate(firstOperand, inputValue, operator));
+            calculator.firstOperand = inputValue;
+            calculator.waitingForSecondOperand = false;
+            calculator.operator = null;
+        }
+    }
+
+    function resetCalculator() {
+        calculator.displayValue = '0';
+        calculator.firstOperand = null;
+        calculator.waitingForSecondOperand = false;
+        calculator.operator = null;
+    }
+});
